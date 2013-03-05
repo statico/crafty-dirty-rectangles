@@ -7776,7 +7776,21 @@ Crafty.DrawManager = (function () {
 				return;
 			}
 
+			// XXXXXXXXXXXXXX BEGIN BENCHMARK XXXXXXXXXXXXXXXXXXXXX
+			if (typeof window.samples === 'undefined') window.samples = [];
+			var t = performance.now();
 			dirty_rects = this.merge(dirty_rects);
+			window.samples.push(performance.now() - t);
+			if (window.samples.length > 100) {
+				var sum = 0;
+				for (var k = 0; k < window.samples.length; k++) {
+					sum += window.samples[k];
+				}
+				console.log('merge:', sum / window.samples.length);
+				window.samples.length = 0;
+			}
+			// XXXXXXXXXXXXXX END BENCHMARK XXXXXXXXXXXXXXXXXXXXX
+
 			for (i = 0; i < l; ++i) { //loop over every dirty rect
 				rect = dirty_rects[i];
 				if (!rect) continue;
