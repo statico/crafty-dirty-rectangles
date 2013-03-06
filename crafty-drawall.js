@@ -7968,7 +7968,7 @@ Crafty.DrawManager = (function () {
 				for (var k = 0; k < window.samples.length; k++) {
 					sum += window.samples[k];
 				}
-				console.log('merge:', sum / window.samples.length);
+				console.log('drawall:', sum / window.samples.length);
 				window.samples.length = 0;
 			}
 			return;
